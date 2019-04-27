@@ -9,6 +9,9 @@ char ctrStr[10];
 
 // <SESSION>
 unsigned long int currEpoch = 1000000000;
+unsigned long int userExpEpoch = 1000000060;
+
+char userExpEpochStr[24];
 char currEpochStr[24];
 // </SESSION>
 
@@ -43,8 +46,6 @@ void main(){
   UART1_Init(9600);
   
   I2C_Master_Init(CLK_FREQ);
-
-  outputFreshLCD("init", "");
   
   PIE1.TMR1IE = 1;
   PIR1.TMR1IF = 0;
@@ -53,6 +54,20 @@ void main(){
   TMR1H = 0x63;
   TMR1L = 0xC0;
 
+
+  
+  LongToStr(userExpEpoch, userExpEpochStr);
+  clearSession();
+  strcpy(sessionMode, "ADD");
+  strcpy(sessionData[0], "D287131B5D");
+  strcpy(sessionData[1], Ltrim(userExpEpochStr));
+  strcpy(sessionBlockData, deMapSession(1, 0));
+
+  outputFreshLCD(Ltrim(sessionBlockData), "");
+  i2cSend(0x44, Ltrim(sessionBlockData));
+  
+  Delay_ms(100);
+  
   T1CON.TMR1ON = 1;
   
   while(1){

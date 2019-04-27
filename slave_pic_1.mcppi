@@ -27,8 +27,9 @@ ActiveImageIndex=-1
 File0=slave_pic_1.c
 File1=..\Test 8\slave_pic_1.c
 File2=..\Test 7_1\slave_pic_1.c
-File3=.\Headers\modules.h
-Count=4
+File3=.\Headers\session.h
+File4=.\Headers\eeprom.h
+Count=5
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -68,14 +69,16 @@ File9=C_Math
 File10=UART
 Count=11
 [EXPANDED_NODES]
-0=slave_pic_1.mcppi
 3=Header Files
 4=Headers
-Count=3
+30=Header Files
+31=Headers
+Count=4
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
-238=Keypad4x4
+45=Conversions
+108=C_String
 825=UART
 840=USB
 851=Additional Libraries

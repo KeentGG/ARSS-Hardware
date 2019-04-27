@@ -68,10 +68,11 @@ File9=EEPROM
 Count=10
 [EXPANDED_NODES]
 3=Header Files
+4=Headers
 27=host_pic.mcppi
 30=Header Files
 31=Headers
-Count=4
+Count=5
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
