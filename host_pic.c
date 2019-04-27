@@ -9,6 +9,7 @@ char ctrStr[10];
 
 // <SESSION>
 unsigned long int currEpoch = 1000000000;
+char currEpochStr[24];
 // </SESSION>
 
 
@@ -24,6 +25,8 @@ unsigned int timerThirtySecCounter = 0;
 
 #include <Headers/lcd.h>
 #include <Headers/connection.h>
+#include <Headers/output_strings.h>
+#include <Headers/coreSession.h>
 #include <Headers/debug.h>
 #include <Headers/host/modules.h>
 
@@ -53,10 +56,25 @@ void main(){
   T1CON.TMR1ON = 1;
   
   while(1){
-    debug("TIME");
-    i2cSend(0x44, "TIME,100000000");
-    Delay_ms(400);
-    outputFreshLCD("", "");
-    Delay_ms(1000);
+    while(dataReceived == 0){}
+    if(intFromTimer){
+      intFromTimer = 0;
+      if(timerThirtySecCounter == 0){
+        logSessionHead("Time Sync");
+        LongToStr(currEpoch, currEpochStr);
+        debug(currEpochStr);
+        clearSession();
+        strcpy(sessionMode, "TIME");
+        debug(sessionMode);
+        strcpy(sessionData[0], Ltrim(currEpochStr));
+        strcpy(sessionBlockData, deMapSession(1, 0));
+        debug(sessionBlockData);
+
+        i2cSend(0x44, Ltrim(sessionBlockData));
+
+        logSessionFoot("Time Sync");
+      }
+    }
+    dataReceived = 0;
   }
 }
