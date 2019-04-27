@@ -18,7 +18,11 @@ char currEpochStr[24];
 
 // <INTERRUPT>
 char j;
+char uartRcv;
+char uartRcvBuff[64];
 
+unsigned int uartCount = 0;
+unsigned int intFromUart = 0;
 unsigned int dataReceived = 0;
 unsigned int intFromTimer = 0;
 unsigned int timerCounter = 0;
@@ -54,8 +58,6 @@ void main(){
   TMR1H = 0x63;
   TMR1L = 0xC0;
 
-
-  
   LongToStr(userExpEpoch, userExpEpochStr);
   clearSession();
   strcpy(sessionMode, "ADD");
@@ -74,21 +76,20 @@ void main(){
     while(dataReceived == 0){}
     if(intFromTimer){
       intFromTimer = 0;
-      if(timerThirtySecCounter == 0){
-        logSessionHead("Time Sync");
-        LongToStr(currEpoch, currEpochStr);
-        debug(currEpochStr);
-        clearSession();
-        strcpy(sessionMode, "TIME");
-        debug(sessionMode);
-        strcpy(sessionData[0], Ltrim(currEpochStr));
-        strcpy(sessionBlockData, deMapSession(1, 0));
-        debug(sessionBlockData);
 
-        i2cSend(0x44, Ltrim(sessionBlockData));
+      logSessionHead("Time Sync");
+      LongToStr(currEpoch, currEpochStr);
+      debug(currEpochStr);
+      clearSession();
+      strcpy(sessionMode, "TIME");
+      debug(sessionMode);
+      strcpy(sessionData[0], Ltrim(currEpochStr));
+      strcpy(sessionBlockData, deMapSession(1, 0));
+      debug(sessionBlockData);
 
-        logSessionFoot("Time Sync");
-      }
+      i2cSend(0x44, Ltrim(sessionBlockData));
+
+      logSessionFoot("Time Sync");
     }
     dataReceived = 0;
   }
