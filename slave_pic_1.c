@@ -1,9 +1,23 @@
 #define PIC_ADDR 0x44
 #define CLK_FREQ 100000
 
+// <SESSION>
+
+unsigned long int currTime = 0;
+unsigned int hasSession = 0;
+
+char rawCurrTimeStr[24];
+char currTimeStr[24];
+
+// </SESSION>
+
 #include <Built_in.h>
 #include <Headers/lcd.h>
 #include <Headers/connection.h>
+#include <Headers/output_strings.h>
+#include <Headers/eeprom.h>
+#include <Headers/coreSession.h>
+#include <Headers/session.h>
 
 // <INTERRUPT>
 
@@ -55,11 +69,8 @@ void main(){
   
   while(1){
     while(dataReceived == 0){}
-    outputFreshLCD("RECEIVED","");
-    
-    Delay_ms(300);
-    
-    outputFreshLCD("","");
+    mapSession(sdaBuffer);
+    checkSession();
 
     sdaBuffer[0] = '\0';
     dataReceived = 0;
