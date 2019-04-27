@@ -80,7 +80,8 @@ void main(){
               outputFreshLCD("Unlocking", "your unit");
             }
           }else{
-            outputFreshLCD("Serial not match", "");
+          
+            outputFreshLCD("Serial not match", storedSerialId);
           }
         }
       }
