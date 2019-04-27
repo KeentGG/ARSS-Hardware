@@ -43,8 +43,6 @@ void main(){
   UART1_Init(9600);
   
   I2C_Master_Init(CLK_FREQ);
-
-  outputFreshLCD("init", "");
   
   PIE1.TMR1IE = 1;
   PIR1.TMR1IF = 0;
