@@ -5,11 +5,15 @@
 // <SESSION>
 unsigned long int currTime = 0;
 unsigned int hasSession = 0;
-unsigned int userExpEpoch = 0;
+unsigned long int userExpEpoch = 0;
 
 char rawCurrTimeStr[24];
 char currTimeStr[24];
 char userExpEpochStr[24];
+
+unsigned long int diffTime = 0;
+char rawDiffTimeStr[24];
+char diffTimeStr[24];
 // </SESSION>
 
 
@@ -71,9 +75,9 @@ void main(){
             getEEPROM(userExpEpochStr, 0x0C);
             userExpEpoch = atol(userExpEpochStr);
             if(currTime > userExpEpoch){
-              outputFreshLCD("Expired session", "Please settle overdue");
+              outputFreshLCD("Expired", "Settle overdue");
             }else{
-              outputFreshLCD("Unlocking unit", "");
+              outputFreshLCD("Unlocking", "your unit");
             }
           }else{
             outputFreshLCD("Serial not match", "");

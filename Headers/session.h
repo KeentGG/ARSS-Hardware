@@ -8,15 +8,10 @@ void updateSessionData(){
   char serialID[MAX_SESSION_DATA_SIZE];
   char deMapSessionData[255];
 
-  Delay_ms(300);
-
   clearEEPROM();
-//  outputFreshLCD(sessionData[0], "");
+
   setEEPROM(sessionData[0], 0x00);
   setEEPROM(sessionData[1], 0x0C);
-  Delay_ms(50);
-  Delay_ms(600);
-//  setEEPROM(sessionData[1], 0x08);
 }
 
 void unlockUnit(){
@@ -41,9 +36,7 @@ void checkSession(){
     clearEEPROM();
   }else if(strcmp(sessionMode, UPDATE_MODE) == 0){
     outputFreshLCD("Updating..", "");
-//    clearEEPROM();
     setEEPROM(sessionData[0], 0x0C);
-//    updateSessionData();
   }else if(strcmp(sessionMode, "READ") == 0){
     outputFreshLCD("Reading..", "");
     Delay_ms(500);
