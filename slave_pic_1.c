@@ -69,7 +69,7 @@ void main(){
   
   while(1){
     while(dataReceived == 0){}
-    outputFreshLCD("RECEIVED","");
+    outputFreshLCD(sdaBuffer,"");
     
     Delay_ms(300);
     

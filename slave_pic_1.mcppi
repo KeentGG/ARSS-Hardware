@@ -49,6 +49,7 @@ File5=.\Headers\output_strings.h
 File6=.\Headers\pic_module.h
 File7=.\Headers\session.h
 File8=.\Headers\variables.h
+File9=.\Headers\modules.h
 Count=10
 [PLDS]
 Count=0
