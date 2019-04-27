@@ -15,13 +15,19 @@ char currTimeStr[24];
 
 // </LOCAL>
 
+// <DEBUG>
+
+unsigned int debugLogCtr = 0;
+
+// </DEBUG>
+
 #include <Headers/lcd.h>
 #include <Headers/connection.h>
 #include <Headers/output_strings.h>
 #include <Headers/eeprom.h>
 #include <Headers/coreSession.h>
 #include <Headers/session.h>
-//#include <Headers/modules.h>
+#include <Headers/modules.h>
 
 void main(){
   ADCON1 = 0x0F;
@@ -35,7 +41,7 @@ void main(){
     strcpy(sessionData[0], "KEANU");
     strcpy(sessionBlockData, deMapSession(1, 0));
 
-//    debug(Ltrim(sessionBlockData));
+    debug(Ltrim(sessionBlockData));
     i2cSend(0x42, Ltrim(sessionBlockData));
   
     i2cSend(0x44, "Test");

@@ -25,6 +25,7 @@ Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
 File0=host_pic.c
+File1=.\Headers\modules.h
 File2=.\Headers\coreSession.h
 Count=3
 [EEPROM]
@@ -47,6 +48,7 @@ File5=.\Headers\output_strings.h
 File6=.\Headers\pic_module.h
 File7=.\Headers\session.h
 File8=.\Headers\variables.h
+File9=.\Headers\modules.h
 Count=10
 [PLDS]
 Count=0
@@ -66,10 +68,11 @@ Count=10
 0=host_pic.mcppi
 1=Sources
 3=Header Files
+4=Headers
 26=slave_pic_1.mcppi
 29=Header Files
 30=Headers
-Count=6
+Count=7
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
