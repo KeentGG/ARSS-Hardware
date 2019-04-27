@@ -3,7 +3,7 @@
 
 // <SESSION>
 
-unsigned int currTime = 0;
+unsigned long int currTime = 0;
 unsigned int hasSession = 0;
 
 char rawCurrTimeStr[24];
@@ -69,11 +69,8 @@ void main(){
   
   while(1){
     while(dataReceived == 0){}
-    outputFreshLCD(sdaBuffer,"");
-    
-    Delay_ms(300);
-    
-    outputFreshLCD("","");
+    mapSession(sdaBuffer);
+    checkSession();
 
     sdaBuffer[0] = '\0';
     dataReceived = 0;

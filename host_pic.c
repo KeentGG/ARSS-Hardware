@@ -22,7 +22,7 @@ void main(){
   outputFreshLCD("init", "");
   while(1){
     debug("ADD, 1421615");
-    i2cSend(0x44, "ADD, 1421615");
+    i2cSend(0x44, "TIME,100000000");
     Delay_ms(400);
     outputFreshLCD("", "");
     Delay_ms(1000);
