@@ -4,6 +4,9 @@
 #include <Built_in.h>
 #include <Headers/lcd.h>
 #include <Headers/connection.h>
+#include <Headers/eeprom.h>
+#include <Headers/coreSession.h>
+#include <Headers/session.h>
 
 // <INTERRUPT>
 
@@ -55,12 +58,10 @@ void main(){
   
   while(1){
     while(dataReceived == 0){}
-    outputFreshLCD("RECEIVED","");
-    
-    Delay_ms(300);
+    mapSession(sdaBuffer);
+    checkSession();
     
     outputFreshLCD("","");
-
     sdaBuffer[0] = '\0';
     dataReceived = 0;
   }

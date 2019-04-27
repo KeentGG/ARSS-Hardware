@@ -1,9 +1,10 @@
-#define MAX_SESSION_DATA 5
-#define MAX_SESSION_DATA_SIZE 64
+#define MAX_SESSION_DATA 4
+#define MAX_SESSION_DATA_SIZE 32
 
 
 char sessionMode[MAX_SESSION_DATA_SIZE];
 char sessionData[MAX_SESSION_DATA][MAX_SESSION_DATA_SIZE];
+char sessionBlockData[MAX_SESSION_DATA * MAX_SESSION_DATA_SIZE];
 int hasReceived;
 char receive[255];
 char delimiter[] = ",";
