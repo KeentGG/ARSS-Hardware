@@ -1,6 +1,7 @@
 #define PIC_ADDR 0x44
 #define CLK_FREQ 100000
 
+
 // <SESSION>
 
 unsigned long int currTime = 0;
@@ -11,13 +12,6 @@ char currTimeStr[24];
 
 // </SESSION>
 
-#include <Built_in.h>
-#include <Headers/lcd.h>
-#include <Headers/connection.h>
-#include <Headers/output_strings.h>
-#include <Headers/eeprom.h>
-#include <Headers/coreSession.h>
-#include <Headers/session.h>
 
 // <INTERRUPT>
 
@@ -30,34 +24,17 @@ unsigned int intFromTimer = 0;
 
 // </INTERRUPT>
 
+#include <Built_in.h>
+#include <Headers/lcd.h>
+#include <Headers/connection.h>
+#include <Headers/output_strings.h>
+#include <Headers/eeprom.h>
+#include <Headers/coreSession.h>
+#include <Headers/session.h>
+#include <Headers/modules.h>
+
 void interrupt(){
-  if (PIR1.SSPIF){
-    SSPCON1.CKP = 0;
-
-    if (SSPSTAT.BF == 0){
-      j = SSPBUF;
-      return;
-    }
-
-    if (SSPSTAT.D_A == 1){
-      char sdaByte = SSPBUF;
-//      dataReceived = 1;
-      if(sdaByte == ';'){
-        dataReceived = 1;
-
-        sdaBuffer[sdaPtr++] = '\0';
-        sdaPtr = 0;
-      }else{
-        sdaBuffer[sdaPtr++] = sdaByte;
-      }
-      PIR1.SSPIF = 0;
-      SSPCON1.CKP = 1;
-      return;
-    }
-  }
-  PIR1.SSPIF = 0;
-  SSPCON1.CKP = 1;
-  j = SSPBUF;
+  isr();
 }
 
 void main(){

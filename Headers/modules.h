@@ -1,13 +1,29 @@
-void debug(char *msg){
-  if(debugLogCtr == 99){
-    debugLogCtr = 0;
+void isr(){
+ if(PIR1.SSPIF){
+    SSPCON1.CKP = 0;
+
+    if (SSPSTAT.BF == 0){
+      j = SSPBUF;
+      return;
+    }
+
+    if (SSPSTAT.D_A == 1){
+      char sdaByte = SSPBUF;
+
+      if(sdaByte == ';'){
+        dataReceived = 1;
+
+        sdaBuffer[sdaPtr++] = '\0';
+        sdaPtr = 0;
+      }else{
+        sdaBuffer[sdaPtr++] = sdaByte;
+      }
+      PIR1.SSPIF = 0;
+      SSPCON1.CKP = 1;
+      return;
+    }
   }
-
-  IntToStr(debugLogCtr, ctrStr);
-
-  debugLogCtr++;
-  UART1_Write_Text(Ltrim(ctrStr));
-  UART1_Write_Text(" - ");
-  UART1_Write_Text(msg);
-  UART1_Write_Text("\r\n");
+  PIR1.SSPIF = 0;
+  SSPCON1.CKP = 1;
+  j = SSPBUF;
 }
