@@ -11,7 +11,6 @@ void main(){
 
   outputFreshLCD("init", "");
   while(1){
-
      i2cSend(0x44, "Test");
      Delay_ms(400);
      outputFreshLCD("", "");
