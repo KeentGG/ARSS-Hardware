@@ -1,4 +1,5 @@
 #define PIC_ADDR 0x44
+#define UNIT_NUM 1
 #define CLK_FREQ 100000
 
 
@@ -6,14 +7,14 @@
 unsigned long int currTime = 0;
 unsigned int hasSession = 0;
 unsigned long int userExpEpoch = 0;
+unsigned int sessionAddr;
 
 char rawCurrTimeStr[24];
 char currTimeStr[24];
 char userExpEpochStr[24];
-
-unsigned long int diffTime = 0;
 char rawDiffTimeStr[24];
 char diffTimeStr[24];
+
 // </SESSION>
 
 
@@ -63,10 +64,11 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
 
-  outputFreshLCD("init", "");
+  outputFreshLCD("LISTENING", "");
   LATB.f2 = 0;
   
   while(1){
+    outputFreshLCD("line 1", "line 2");
     while(dataReceived == 0){
       if( MFRC522_isCard( &TagType ) ){
         serialId[0] = '\0';
@@ -86,7 +88,6 @@ void main(){
               outputFreshLCD("Unlocking", "your unit");
             }
           }else{
-          
             outputFreshLCD("Serial not match", storedSerialId);
           }
         }

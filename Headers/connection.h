@@ -74,13 +74,6 @@ void i2cSend(char slave, char *send_data){
 
   I2C_wait();
   I2C1_Wr(slave);
-  
-//  outputFreshLCD("Sending", send_data);
-//  if(SSPCON2.ACKSTAT == 1){
-//    outputFreshLCD("Acknowledge", "from slave");
-//  }else{
-//    outputFreshLCD("N.A.", "from slave");
-//  }
 
   for(n = 0; send_data[n] != 0; n++){
     I2C_wait();

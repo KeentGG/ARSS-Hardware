@@ -1,4 +1,4 @@
-#define MAX_SESSION_DATA 4
+#define MAX_SESSION_DATA 5
 #define MAX_SESSION_DATA_SIZE 32
 
 
