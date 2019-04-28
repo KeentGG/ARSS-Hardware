@@ -9,7 +9,7 @@ void isr(){
 
     if (SSPSTAT.D_A == 1){
       char sdaByte = SSPBUF;
-
+      dataReceived = 1;
       if(sdaByte == ';'){
         dataReceived = 1;
 
