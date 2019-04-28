@@ -3,14 +3,12 @@ void host_isr(){
   
   if (PIR1.RCIF) {
     uartRcv = RCREG;
-    intFromUart = 1;
-       dataReceived = 1;
-
-    if (RCREG == ';') {
-       uartRcvBuff[uartCount] = '\0';
-       uartCount = 0;
-       intFromUart = 1;
-       dataReceived = 1;
+    
+    if(RCREG == ';') {
+      uartRcvBuff[uartCount] = '\0';
+      uartCount = 0;
+      intFromUart = 1;
+      dataReceived = 1;
     }else {
       uartRcvBuff[uartCount] = RCREG;
       uartCount++;

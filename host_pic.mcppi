@@ -27,7 +27,8 @@ ActiveImageIndex=-1
 File0=host_pic.c
 File1=.\Headers\Host\modules.h
 File2=.\Headers\debug.h
-Count=3
+File3=.\Headers\rtc.h
+Count=4
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -50,7 +51,8 @@ File7=.\Headers\session.h
 File8=.\Headers\variables.h
 File9=.\Headers\debug.h
 File10=.\Headers\Host\modules.h
-Count=11
+File11=.\Headers\rtc.h
+Count=12
 [PLDS]
 Count=0
 [Useses]
@@ -64,15 +66,14 @@ File6=UART
 File7=C_Stdlib
 File8=C_Type
 File9=EEPROM
-Count=10
+File10=Time
+Count=11
 [EXPANDED_NODES]
+1=Sources
 3=Header Files
-16=host_pic.mcppi
-19=Header Files
 20=Headers
 31=Host
-44=slave_pic_1.mcppi
-Count=6
+Count=4
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
@@ -84,6 +85,7 @@ Count=6
 45=Conversions
 72=C_Math
 94=C_Stdlib
+108=C_String
 128=C_Type
 141=EEPROM
 144=EPSON_S1D13700
@@ -99,7 +101,6 @@ Count=6
 305=One_Wire
 309=Port_Expander
 339=PrintOut
-342=PS2
 345=PWM
 354=RS485
 361=Software_I2C

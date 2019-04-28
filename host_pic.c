@@ -1,10 +1,21 @@
 #define PIC_ADDR 0x40
 #define CLK_FREQ 100000
 
+#include <Headers/host/timelib.h>
+
 // <DEBUG>
 unsigned int debugLogCtr = 0;
 char ctrStr[10];
 // </DEBUG>
+
+
+// <RTC>
+unsigned char sec, min1, hr, week_day, day, mn, year;
+char *txt, tnum[4];
+TimeStruct ts;
+unsigned long int epoch;
+char epochStr[24];
+// </RTC>
 
 
 // <SESSION>
@@ -40,6 +51,7 @@ char intFromUartStr[7];
 #include <Headers/coreSession.h>
 #include <Headers/debug.h>
 #include <Headers/host/modules.h>
+#include <Headers/rtc.h>
 
 void interrupt(){
   host_isr();
@@ -59,8 +71,24 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
   
+  debug("reading time");
+  
   while(1){
     while(dataReceived == 0){
+      debug("reading time");
+      Read_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year);
+      Transform_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year); // format date and time
+      ts.ss = sec;
+      ts.mn = min1;
+      ts.hh = hr;
+      ts.md = day;
+      ts.mo = mn;
+      ts.yy = year + 2000;
+      epoch = Time_dateToEpoch(&ts);
+      LongToStr(epoch, epochStr);
+
+      debug(Ltrim(epochStr));
+      Delay_ms(5000);
     }
     if(intFromUart == 1){
        debug(uartRcvBuff);
