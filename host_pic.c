@@ -21,10 +21,13 @@ char epochStr[24];
 // <SESSION>
 unsigned long int currEpoch = 1000000000;
 unsigned long int userExpEpoch = 1000000060;
+unsigned int unitAddrInt;
 
 char userExpEpochStr[24];
 char rawCurrEpochStr[24];
 char currEpochStr[24];
+char unitAddr;
+
 // </SESSION>
 
 
@@ -72,8 +75,6 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
   
-//  debug("reading time");
-  
   while(1){
     while(dataReceived == 0){
       logSessionHead("Time Sync");
@@ -103,7 +104,10 @@ void main(){
       Delay_ms(5000);
     }
     if(intFromUart == 1){
-       debug(uartRcvBuff);
+      logSessionHead("Send Session");
+      debug(uartRcvBuff);
+      i2cSend(0x44, uartRcvBuff);
+      logSessionFoot("Send Session");
     }
     if(intFromTimer){
       intFromTimer = 0;
