@@ -47,46 +47,9 @@ void Transform_Time(char  *sec, char *min, char *hr, char *week_day, char *day, 
 }//~
 
 //-------------------- Output values to LCD
-void Display_Time(char sec, char min, char hr, char week_day, char day, char mn, char year) {
-   switch(week_day){
-     case 1: txt="Sun"; break;
-     case 2: txt="Mon"; break;
-     case 3: txt="Tue"; break;
-     case 4: txt="Wed"; break;
-     case 5: txt="Thu"; break;
-     case 6: txt="Fri"; break;
-     case 7: txt="Sat"; break;
-   }
-   LCD_Out(1,1,txt);
-   Lcd_Chr(1, 6, (day) + 48);    // Print tens digit of day variable
-   Lcd_Chr(1, 7, (day % 10) + 48);    // Print oness digit of day variable
-   Lcd_Chr(1, 9, (mn / 10) + 48);
-   Lcd_Chr(1,10, (mn % 10) + 48);
-   Lcd_Chr(1,15,  year  + 48);          // Print year vaiable + 8 (start from year 2008)
 
-   Lcd_Chr(2, 6, (hr / 10)   + 48);
-   Lcd_Chr(2, 7, (hr % 10)   + 48);
-   Lcd_Chr(2, 9, (min / 10) + 48);
-   Lcd_Chr(2,10, (min % 10) + 48);
-   Lcd_Chr(2,12, (sec / 10) + 48);
-   Lcd_Chr(2,13, (sec % 10) + 48);
-
-}//~
 
 //------------------ Performs project-wide init
-void Init_Main() {
-  ADCON1=0x0F;
-  TRISB=0x00;
-  PORTB=0x00;
-
-  I2C1_Init(100000);         // initialize I2C communication
-  Lcd_Init();                // Initialize LCD
-  Lcd_Cmd(_LCD_CLEAR);       // Clear LCD display
-  Lcd_Cmd(_LCD_CURSOR_OFF);  // Turn cursor off
-
-  I2C1_Init(100000);
-  LCD_Cmd(_LCD_CURSOR_OFF);
-}//~
 
 void DS107_Write(){
   I2C1_Start();              // issue I2C start signal
