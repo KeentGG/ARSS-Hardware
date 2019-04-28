@@ -28,11 +28,11 @@ void logSessionHead(char *head){
 }
 
 void logSessionFoot(char *foot){
-while(UART1_Tx_Idle() == 0){};
-  UART1_Write_Text("-----// ");
+  while(UART1_Tx_Idle() == 0){};
+  UART1_Write_Text("-----/ ");
   while(UART1_Tx_Idle() == 0){};
   UART1_Write_Text(foot);
   while(UART1_Tx_Idle() == 0){};
-  UART1_Write_Text(" //-----\r\n");
+  UART1_Write_Text(" \\-----\r\n");
   while(UART1_Tx_Idle() == 0){};
 }

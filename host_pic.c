@@ -75,7 +75,7 @@ void main(){
   
   while(1){
     while(dataReceived == 0){
-      debug("reading time");
+      logSessionHead("Time Sync");
       Read_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year);
       Transform_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year); // format date and time
       ts.ss = sec;
@@ -88,6 +88,16 @@ void main(){
       LongToStr(epoch, epochStr);
 
       debug(Ltrim(epochStr));
+      logSessionFoot("Time Sync");
+      
+//      clearSession();
+//      strcpy(sessionMode, "TIME");
+//      strcpy(sessionData[0], Ltrim(currEpochStr));
+//      strcpy(sessionBlockData, deMapSession(1, 0));
+//
+//      outputFreshLCD(Ltrim(sessionBlockData), "");
+      i2cSend(0x44, Ltrim(sessionBlockData));
+
       Delay_ms(5000);
     }
     if(intFromUart == 1){

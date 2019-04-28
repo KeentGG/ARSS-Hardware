@@ -63,6 +63,8 @@ void i2cWait() {
 void i2cSend(char slave, char *send_data){
   char n = 0;
   char addrStr[2];
+  
+  INTCON.GIE = 0;
 
   while(I2C1_Is_Idle == 0){}
 //
@@ -88,6 +90,7 @@ void i2cSend(char slave, char *send_data){
   I2C1_Wr(';');
   I2C_wait();
   I2C1_Stop();
+  INTCON.GIE = 1;
 }
 
 void I2C_wait ()
