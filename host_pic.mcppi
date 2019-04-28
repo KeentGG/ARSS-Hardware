@@ -25,10 +25,9 @@ Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
 File0=host_pic.c
-File1=..\Test 7_1\host_pic.c
-File2=.\Headers\Host\modules.h
-File3=.\Headers\debug.h
-Count=4
+File1=.\Headers\Host\modules.h
+File2=.\Headers\debug.h
+Count=3
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -68,11 +67,12 @@ File9=EEPROM
 Count=10
 [EXPANDED_NODES]
 3=Header Files
-4=Headers
-27=host_pic.mcppi
-30=Header Files
-31=Headers
-Count=5
+16=host_pic.mcppi
+19=Header Files
+20=Headers
+31=Host
+44=slave_pic_1.mcppi
+Count=6
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries

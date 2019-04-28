@@ -43,9 +43,7 @@ void interrupt(){
 
 void main(){
   ADCON1 = 0x0F;
-  
-  INTCON.GIE = 1;
-  INTCON.PEIE = 1;
+
   
   PIE1.SSPIE = 1;
   PIE1.RCIE = 1;
@@ -55,33 +53,38 @@ void main(){
   
   I2C_Master_Init(CLK_FREQ);
   
+
+  INTCON.GIE = 1;
+  INTCON.PEIE = 1;
+
 //  PIE1.TMR1IE = 1;
 //  PIR1.TMR1IF = 0;
 //
 //  T1CON = 0x80;
 //  TMR1H = 0x63;
 //  TMR1L = 0xC0;
-  
+
 //  T1CON.TMR1ON = 1;
   
   while(1){
     while(dataReceived == 0){
-//      if(UART1_Data_Ready() == 1){
-//        uartRcvBuff[0] = '\0';
-//        UART1_Read_Text(uartRcvBuff, ';', 255);
-//        logSessionHead("Uart");
-//        debug(uartRcvBuff);
-//        logSessionFoot("Uart");
-//      }
+      if(UART1_Data_Ready() == 1){
+        uartRcvBuff[0] = '\0';
+        UART1_Read_Text(uartRcvBuff, ';', 255);
+        logSessionHead("Uart");
+        debug(uartRcvBuff);
+        logSessionFoot("Uart");
+      }
     }
-    if(intFromUart){
-      logSessionHead("Uart");
-      intFromUart = 0;
-//      debug("test");
-
-      uartRcvBuff[0] = '\0';
-      logSessionFoot("Uart");
-    }
+//    if(intFromUart){
+//      logSessionHead("Uart");
+//      intFromUart = 0;
+      debug("test");
+//      debug(uartRcvBuff);
+//
+//      uartRcvBuff[0] = '\0';
+//      logSessionFoot("Uart");
+//    }
     if(intFromTimer){
       intFromTimer = 0;
 
