@@ -23,6 +23,7 @@ unsigned long int currEpoch = 1000000000;
 unsigned long int userExpEpoch = 1000000060;
 
 char userExpEpochStr[24];
+char rawCurrEpochStr[24];
 char currEpochStr[24];
 // </SESSION>
 
@@ -63,7 +64,7 @@ void main(){
   PIE1.SSPIE = 1;
   PIE1.RCIE = 1;
   PIR1.RCIF = 0;
-  
+
   UART1_Init(9600);
   
   I2C_Master_Init(CLK_FREQ);
@@ -71,7 +72,7 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
   
-  debug("reading time");
+//  debug("reading time");
   
   while(1){
     while(dataReceived == 0){
@@ -84,19 +85,20 @@ void main(){
       ts.md = day;
       ts.mo = mn;
       ts.yy = year + 2000;
-      epoch = Time_dateToEpoch(&ts);
-      LongToStr(epoch, epochStr);
-
-      debug(Ltrim(epochStr));
-      logSessionFoot("Time Sync");
+      currEpoch = Time_dateToEpoch(&ts);
       
-//      clearSession();
-//      strcpy(sessionMode, "TIME");
-//      strcpy(sessionData[0], Ltrim(currEpochStr));
-//      strcpy(sessionBlockData, deMapSession(1, 0));
-//
-//      outputFreshLCD(Ltrim(sessionBlockData), "");
-      i2cSend(0x44, Ltrim(sessionBlockData));
+      LongToStr(currEpoch, rawCurrEpochStr);
+      strcpy(currEpochStr, Ltrim(rawCurrEpochStr));
+      
+      clearSession();
+      strcpy(sessionMode, "TIME");
+      strcpy(sessionData[0], Ltrim(currEpochStr));
+      strcpy(sessionBlockData, deMapSession(1, 0));
+
+      debug(sessionBlockData);
+
+      i2cSend(0x44, sessionBlockData);
+      logSessionFoot("Time Sync");
 
       Delay_ms(5000);
     }

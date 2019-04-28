@@ -19,20 +19,20 @@ void debug(char *msg){
 
 void logSessionHead(char *head){
   while(UART1_Tx_Idle() == 0){};
-  UART1_Write_Text("\r\n----- ");
+  UART1_Write_Text("\r\n-----/ ");
   while(UART1_Tx_Idle() == 0){};
   UART1_Write_Text(head);
   while(UART1_Tx_Idle() == 0){};
-  UART1_Write_Text(" -----\r\n");
+  UART1_Write_Text(" \\-----\r\n");
   while(UART1_Tx_Idle() == 0){};
 }
 
 void logSessionFoot(char *foot){
   while(UART1_Tx_Idle() == 0){};
-  UART1_Write_Text("-----/ ");
+  UART1_Write_Text("-----\\ ");
   while(UART1_Tx_Idle() == 0){};
   UART1_Write_Text(foot);
   while(UART1_Tx_Idle() == 0){};
-  UART1_Write_Text(" \\-----\r\n");
+  UART1_Write_Text(" /-----\r\n");
   while(UART1_Tx_Idle() == 0){};
 }

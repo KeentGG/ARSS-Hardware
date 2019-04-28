@@ -53,12 +53,18 @@ void interrupt(){
 
 void main(){
   ADCON1 = 0x0F;
+  
+  TRISB.b2 = 0;
 
   Soft_SPI_Init();
   MFRC522_Init();
   I2C_Slave_Init(0x44);
+  
+  INTCON.GIE = 1;
+  INTCON.PEIE = 1;
 
   outputFreshLCD("init", "");
+  LATB.f2 = 0;
   
   while(1){
     while(dataReceived == 0){
@@ -86,9 +92,11 @@ void main(){
         }
       }
     }
+    LATB.f2 = 1;
     mapSession(sdaBuffer);
     checkSession();
     sdaBuffer[0] = '\0';
     dataReceived = 0;
+    LATB.f2 = 0;
   }
 }

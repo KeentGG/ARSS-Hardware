@@ -26,7 +26,8 @@ ActiveImageIndex=-1
 [OPENED_FILES]
 File0=slave_pic_1.c
 File1=..\Test 8\slave_pic_1.c
-Count=2
+File2=.\Headers\modules.h
+Count=3
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -67,7 +68,13 @@ File10=UART
 Count=11
 [EXPANDED_NODES]
 0=slave_pic_1.mcppi
-Count=1
+3=Header Files
+4=Headers
+27=host_pic.mcppi
+30=Header Files
+31=Headers
+42=Host
+Count=7
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries

@@ -90,6 +90,7 @@ void i2cSend(char slave, char *send_data){
   I2C1_Wr(';');
   I2C_wait();
   I2C1_Stop();
+  I2C_wait();
   INTCON.GIE = 1;
 }
 
