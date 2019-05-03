@@ -1,5 +1,5 @@
 #define PIC_ADDR 0x44
-#define UNIT_NUM 1
+#define UNIT_NUM "1"
 #define CLK_FREQ 100000
 
 
@@ -64,11 +64,12 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
 
-  outputFreshLCD("LISTENING", "");
+  outputFreshLCD("UNIT #4", "Booting up");
+  Delay_ms(3000);
+  outputFreshLCD("", "");
   LATB.f2 = 0;
-  
+
   while(1){
-    outputFreshLCD("line 1", "line 2");
     while(dataReceived == 0){
       if( MFRC522_isCard( &TagType ) ){
         serialId[0] = '\0';
@@ -86,18 +87,29 @@ void main(){
               outputFreshLCD("Expired", "Settle overdue");
             }else{
               outputFreshLCD("Unlocking", "your unit");
+              LATB.f2 = 1;
+              Delay_ms(3000);
+              LATB.f2 = 0;
+              outputFreshLCD("Secure the door", "after use.");
+              Delay_ms(2000);
+              outputFreshLCD("Thank you.", "");
             }
           }else{
-            outputFreshLCD("Serial not match", storedSerialId);
+            outputFreshLCD("Oops, invalid.", "Check dashboard.");
           }
+          Delay_ms(2000);
+          outputFreshLCD("", "");
         }
       }
     }
-    LATB.f2 = 1;
+    outputFreshLCD(sdaBuffer, "");
+      dataReceived = 0;
     mapSession(sdaBuffer);
     checkSession();
     sdaBuffer[0] = '\0';
-    dataReceived = 0;
-    LATB.f2 = 0;
+
+    Delay_ms(300);
+    outputFreshLCD("", "");
+//    Delay_ms(750);
   }
 }

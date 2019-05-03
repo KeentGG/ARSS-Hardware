@@ -10,8 +10,8 @@ void updateSessionData(){
 
   clearEEPROM();
 
-  setEEPROM(sessionData[0], 0x00);
-  setEEPROM(sessionData[1], 0x0C);
+  setEEPROM(sessionData[2], 0x00);
+  setEEPROM(sessionData[3], 0x0C);
 }
 
 void unlockUnit(){
@@ -25,30 +25,31 @@ void unlockUnit(){
 void checkSession(){
   char serialID[24];
   char userExp[24];
-
-  if(strcmp(sessionMode, ADD_MODE) == 0){
-    hasSession = 1;
-    outputFreshLCD("Adding..", sessionData[1]);
-    updateSessionData();
-  }else if(strcmp(sessionMode, REMOVE_MODE) == 0){
-    hasSession = 0;
-    outputFreshLCD("Removing..", "");
-    clearEEPROM();
-  }else if(strcmp(sessionMode, UPDATE_MODE) == 0){
-    outputFreshLCD("Updating..", "");
-    setEEPROM(sessionData[0], 0x0C);
-  }else if(strcmp(sessionMode, "READ") == 0){
-    outputFreshLCD("Reading..", "");
-    Delay_ms(500);
-    getEEPROM(serialID, 0x00);
-    getEEPROM(userExp, 0x0C);
-    outputFreshLCD(serialID, userExp);
+  if(strcmp(sessionMode, "SESSION") == 0){
+    if(strcmp(sessionData[0], UNIT_NUM) == 0){
+      if(strcmp(sessionData[1], ADD_MODE) == 0){
+        hasSession = 1;
+        outputFreshLCD("Renting..", sessionData[2]);
+        updateSessionData();
+      }else if(strcmp(sessionData[1], REMOVE_MODE) == 0){
+        hasSession = 0;
+        outputFreshLCD("This unit is", "now available");
+        clearEEPROM();
+      }else if(strcmp(sessionData[1], UPDATE_MODE) == 0){
+        setEEPROM(sessionData[2], 0x0C);
+      }else if(strcmp(sessionData[1], "READ") == 0){
+        Delay_ms(500);
+        getEEPROM(serialID, 0x00);
+        getEEPROM(userExp, 0x0C);
+        outputFreshLCD("Not unit", "");
+      }
+    }else {
+      outputFreshLCD("Not unit", sessionData[0]);
+      Delay_ms(500);
+    }
   }else if(strcmp(sessionMode, "TIME") == 0){
     currTime = atol(sessionData[0]);
     LongToStr(currTime, rawCurrTimeStr);
     strcpy(currTimeStr, Ltrim(rawCurrTimeStr));
-    Lcd_Out(2,1, currTimeStr);
   }
-  Delay_ms(1500);
-  outputFreshLCD("","");
 }

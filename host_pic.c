@@ -75,8 +75,13 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
   
+  uartRcvBuff[0] = '\0';
+  
+  Delay_ms(3000);
+  
   while(1){
     while(dataReceived == 0){
+//      Delay_ms(2500);
       logSessionHead("Time Sync");
       Read_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year);
       Transform_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year); // format date and time
@@ -101,32 +106,16 @@ void main(){
       i2cSend(0x44, sessionBlockData);
       logSessionFoot("Time Sync");
 
-      Delay_ms(5000);
-    }
-    if(intFromUart == 1){
-      logSessionHead("Send Session");
-      debug(uartRcvBuff);
-      i2cSend(0x44, uartRcvBuff);
-      logSessionFoot("Send Session");
-    }
-    if(intFromTimer){
-      intFromTimer = 0;
+      Delay_ms(1000);
+      if(intFromUart == 1){
+        intFromUart = 0;
+//        logSessionHead("Send Session");
+//        debug(uartRcvBuff);
+        i2cSend(0x44, uartRcvBuff);
+//        logSessionFoot("Send Session");
+      }
+      Delay_ms(1000);
+     }
+   }
 
-      logSessionHead("Time Sync");
-      LongToStr(currEpoch, currEpochStr);
-      debug(currEpochStr);
-      clearSession();
-      strcpy(sessionMode, "TIME");
-      debug(sessionMode);
-      strcpy(sessionData[0], Ltrim(currEpochStr));
-      strcpy(sessionBlockData, deMapSession(1, 0));
-      debug(sessionBlockData);
-
-      i2cSend(0x44, Ltrim(sessionBlockData));
-
-      logSessionFoot("Time Sync");
-    }
-
-    dataReceived = 0;
-  }
 }

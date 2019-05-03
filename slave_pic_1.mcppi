@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=host_pic.c
+Value=slave_pic_1.c
 [USE_EEPROM]
 Value=0
 [USE_HEAP]
@@ -26,8 +26,7 @@ ActiveImageIndex=-1
 [OPENED_FILES]
 File0=slave_pic_1.c
 File1=..\Test 8\slave_pic_1.c
-File2=.\Headers\modules.h
-Count=3
+Count=2
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -70,12 +69,8 @@ Count=11
 0=slave_pic_1.mcppi
 3=Header Files
 4=Headers
-30=Header Files
-31=Headers
-42=Host
-Count=6
+Count=3
 [LIB_EXPANDED_NODES]
-0=mikroE Libraries
 1=System Libraries
 45=Conversions
 108=C_String
@@ -89,4 +84,4 @@ Count=6
 1184=FT810
 1531=FT812
 1532=FT812
-Count=15
+Count=13

@@ -8,7 +8,7 @@ void host_isr(){
       uartRcvBuff[uartCount] = '\0';
       uartCount = 0;
       intFromUart = 1;
-      dataReceived = 1;
+//      dataReceived = 1;
     }else {
       uartRcvBuff[uartCount] = RCREG;
       uartCount++;
