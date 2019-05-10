@@ -4,14 +4,22 @@ void host_isr(){
   if (PIR1.RCIF) {
     uartRcv = RCREG;
     
-    if(RCREG == ';') {
-      uartRcvBuff[uartCount] = '\0';
-      uartCount = 0;
-      intFromUart = 1;
-//      dataReceived = 1;
-    }else {
-      uartRcvBuff[uartCount] = RCREG;
-      uartCount++;
+    if(uartRcv == ':'){
+      sessionReceivedValid = 1;
+    }
+
+    if(sessionReceivedValid){
+      if(RCREG == ';') {
+        uartRcvBuff[uartCount] = ';';
+        uartCount++;
+        uartRcvBuff[uartCount] = '\0';
+        uartCount = 0;
+        intFromUart = 1;
+        sessionReceivedValid = 0;
+      }else {
+        uartRcvBuff[uartCount] = RCREG;
+        uartCount++;
+      }
     }
   }
   

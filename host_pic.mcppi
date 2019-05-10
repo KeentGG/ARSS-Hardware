@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=Headers\session.h
+Value=host_pic.c
 [USE_EEPROM]
 Value=0
 [USE_HEAP]
@@ -26,7 +26,7 @@ ActiveImageIndex=-1
 [OPENED_FILES]
 File0=host_pic.c
 File1=..\Test 7_1\host_pic.c
-File2=.\Headers\session.h
+File2=.\Headers\Host\modules.h
 Count=3
 [EEPROM]
 Count=0
@@ -68,14 +68,13 @@ File9=EEPROM
 File10=Time
 Count=11
 [EXPANDED_NODES]
-0=slave_pic_1.mcppi
 3=Header Files
 4=Headers
 27=host_pic.mcppi
 30=Header Files
 31=Headers
 42=Host
-Count=7
+Count=6
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries

@@ -10,14 +10,22 @@ void isr(){
     if (SSPSTAT.D_A == 1){
       char sdaByte = SSPBUF;
       dataReceived = 1;
-      if(sdaByte == ';'){
-        dataReceived = 1;
 
-        sdaBuffer[sdaPtr++] = '\0';
-        sdaPtr = 0;
-      }else{
-        sdaBuffer[sdaPtr++] = sdaByte;
+      if(sessionReceivedValid){
+        if(sdaByte == ';'){
+          dataReceived = 1;
+          sdaBuffer[sdaPtr++] = '\0';
+          sessionReceivedValid = 0;
+          sdaPtr = 0;
+        } else{
+          sdaBuffer[sdaPtr++] = sdaByte;
+        }
+      }else {
+        if(sdaByte == ':'){
+          sessionReceivedValid = 1;
+        }
       }
+
       PIR1.SSPIF = 0;
       SSPCON1.CKP = 1;
       return;

@@ -1,5 +1,5 @@
 #define PIC_ADDR 0x44
-#define UNIT_NUM "1"
+#define UNIT_NUM "2"
 #define CLK_FREQ 100000
 
 
@@ -9,6 +9,7 @@ unsigned int hasSession = 0;
 unsigned long int userExpEpoch = 0;
 unsigned int sessionAddr;
 unsigned int end_overdue = 0;
+unsigned int sessionReceivedValid = 0;
 
 char rawCurrTimeStr[24];
 char currTimeStr[24];
@@ -65,7 +66,7 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
 
-  outputFreshLCD("UNIT #1", "Booting up");
+  outputFreshLCD("UNIT #2", "Booting up");
   Delay_ms(3000);
   outputFreshLCD("", "");
   LATB.f2 = 0;

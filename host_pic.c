@@ -22,11 +22,13 @@ char epochStr[24];
 unsigned long int currEpoch = 1000000000;
 unsigned long int userExpEpoch = 1000000060;
 unsigned int unitAddrInt;
+unsigned int sessionReceivedValid = 0;
 
 char userExpEpochStr[24];
 char rawCurrEpochStr[24];
 char currEpochStr[24];
 char unitAddr;
+
 
 // </SESSION>
 
@@ -80,42 +82,38 @@ void main(){
   Delay_ms(3000);
   
   while(1){
-    while(dataReceived == 0){
-//      Delay_ms(2500);
-      logSessionHead("Time Sync");
-      Read_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year);
-      Transform_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year); // format date and time
-      ts.ss = sec;
-      ts.mn = min1;
-      ts.hh = hr;
-      ts.md = day;
-      ts.mo = mn;
-      ts.yy = year + 2000;
-      currEpoch = Time_dateToEpoch(&ts);
-      
-      LongToStr(currEpoch, rawCurrEpochStr);
-      strcpy(currEpochStr, Ltrim(rawCurrEpochStr));
-      
-      clearSession();
-      strcpy(sessionMode, "TIME");
-      strcpy(sessionData[0], Ltrim(currEpochStr));
-      strcpy(sessionBlockData, deMapSession(1, 0));
+    logSessionHead("Time Sync");
+    Read_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year);
+    Transform_Time(&sec,&min1,&hr,&week_day,&day,&mn,&year); // format date and time
+    ts.ss = sec;
+    ts.mn = min1;
+    ts.hh = hr;
+    ts.md = day;
+    ts.mo = mn;
+    ts.yy = year + 2000;
+    currEpoch = Time_dateToEpoch(&ts);
+    
+    LongToStr(currEpoch, rawCurrEpochStr);
+    strcpy(currEpochStr, Ltrim(rawCurrEpochStr));
+    
+    clearSession();
+    strcpy(sessionMode, "TIME");
+    strcpy(sessionData[0], Ltrim(currEpochStr));
+    strcpy(sessionBlockData, deMapSession(1, 0));
 
-      debug(sessionBlockData);
+    debug(sessionBlockData);
 
-      i2cSend(0x44, sessionBlockData);
-      logSessionFoot("Time Sync");
+    i2cSend(0x44, sessionBlockData);
+    logSessionFoot("Time Sync");
 
-      Delay_ms(1000);
-      if(intFromUart == 1){
-        intFromUart = 0;
-        logSessionHead("Send Session");
-        debug(uartRcvBuff);
-        i2cSend(0x44, uartRcvBuff);
-        logSessionFoot("Send Session");
-      }
-      Delay_ms(1000);
-     }
+    Delay_ms(1000);
+    if(intFromUart == 1){
+      intFromUart = 0;
+      logSessionHead("Send Session");
+      debug(uartRcvBuff);
+      i2cSend(0x44, uartRcvBuff);
+      logSessionFoot("Send Session");
+    }
+    Delay_ms(1000);
    }
-
 }
