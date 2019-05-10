@@ -8,6 +8,7 @@ unsigned long int currTime = 0;
 unsigned int hasSession = 0;
 unsigned long int userExpEpoch = 0;
 unsigned int sessionAddr;
+unsigned int end_overdue = 0;
 
 char rawCurrTimeStr[24];
 char currTimeStr[24];
@@ -64,7 +65,7 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
 
-  outputFreshLCD("UNIT #4", "Booting up");
+  outputFreshLCD("UNIT #1", "Booting up");
   Delay_ms(3000);
   outputFreshLCD("", "");
   LATB.f2 = 0;
@@ -93,6 +94,13 @@ void main(){
               outputFreshLCD("Secure the door", "after use.");
               Delay_ms(2000);
               outputFreshLCD("Thank you.", "");
+              if(end_overdue == 1){
+                outputFreshLCD("This unit is", "now available");
+                Delay_ms(500);
+                clearEEPROM();
+                hasSession = 0;
+                end_overdue = 0;
+              }
             }
           }else{
             outputFreshLCD("Oops, invalid.", "Check dashboard.");
@@ -103,7 +111,8 @@ void main(){
       }
     }
     outputFreshLCD(sdaBuffer, "");
-      dataReceived = 0;
+    dataReceived = 0;
+    Delay_ms(300);
     mapSession(sdaBuffer);
     checkSession();
     sdaBuffer[0] = '\0';

@@ -34,6 +34,7 @@ void checkSession(){
       }else if(strcmp(sessionData[1], REMOVE_MODE) == 0){
         hasSession = 0;
         outputFreshLCD("This unit is", "now available");
+        Delay_ms(500);
         clearEEPROM();
       }else if(strcmp(sessionData[1], UPDATE_MODE) == 0){
         setEEPROM(sessionData[2], 0x0C);
@@ -42,9 +43,10 @@ void checkSession(){
         getEEPROM(serialID, 0x00);
         getEEPROM(userExp, 0x0C);
         outputFreshLCD("Not unit", "");
+      }else if(strcmp(sessionData[1], "END_OVERDUE") == 0){
+        end_overdue = 1;
       }
     }else {
-      outputFreshLCD("Not unit", sessionData[0]);
       Delay_ms(500);
     }
   }else if(strcmp(sessionMode, "TIME") == 0){

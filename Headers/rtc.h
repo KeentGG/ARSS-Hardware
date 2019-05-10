@@ -19,7 +19,7 @@ void Read_Time(char *sec, char *min, char *hr, char *week_day, char *day, char *
   INTCON.GIE = 0;
   I2C1_Start();
   I2C1_Wr(0xD0);
-  debug("i2c");
+//  debug("i2c");
   I2C1_Wr(0);
   I2C1_Repeated_Start();
   I2C1_Wr(0xD1);

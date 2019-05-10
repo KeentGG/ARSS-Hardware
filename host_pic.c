@@ -109,10 +109,10 @@ void main(){
       Delay_ms(1000);
       if(intFromUart == 1){
         intFromUart = 0;
-//        logSessionHead("Send Session");
-//        debug(uartRcvBuff);
+        logSessionHead("Send Session");
+        debug(uartRcvBuff);
         i2cSend(0x44, uartRcvBuff);
-//        logSessionFoot("Send Session");
+        logSessionFoot("Send Session");
       }
       Delay_ms(1000);
      }
