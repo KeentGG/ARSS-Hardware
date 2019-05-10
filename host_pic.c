@@ -103,6 +103,7 @@ void main(){
 
     debug(sessionBlockData);
 
+    i2cSend(0x44, ":");
     i2cSend(0x44, sessionBlockData);
     logSessionFoot("Time Sync");
 
