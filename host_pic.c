@@ -97,15 +97,20 @@ void main(){
     strcpy(currEpochStr, Ltrim(rawCurrEpochStr));
     
     clearSession();
-    strcpy(sessionMode, "TIME");
+    strcpy(sessionMode, ":TIME");
     strcpy(sessionData[0], Ltrim(currEpochStr));
     strcpy(sessionBlockData, deMapSession(1, 0));
 
     debug(sessionBlockData);
 
-    i2cSend(0x44, ":");
     i2cSend(0x44, sessionBlockData);
     logSessionFoot("Time Sync");
+    
+    
+//    i2cSend(0x44, ":");
+//    i2cSend(0x44, "TIME,10000;");
+//    i2cSend(0x44, ":SESSION,1,ADD,KEANU,123213;");
+
 
     Delay_ms(1000);
     if(intFromUart == 1){

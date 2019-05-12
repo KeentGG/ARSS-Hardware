@@ -6,12 +6,11 @@ void host_isr(){
     
     if(uartRcv == ':'){
       sessionReceivedValid = 1;
+      uartCount = 0;
     }
 
     if(sessionReceivedValid){
       if(RCREG == ';') {
-        uartRcvBuff[uartCount] = ';';
-        uartCount++;
         uartRcvBuff[uartCount] = '\0';
         uartCount = 0;
         intFromUart = 1;

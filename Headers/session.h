@@ -1,8 +1,6 @@
 // Dependencies: coreSession.h, eeprom.h, output_strings.h
 char unitSerialId[11];
 
-char eepromTest[] = "1556283018";
-
 void updateSessionData(){
   char expTime[MAX_SESSION_DATA_SIZE];
   char serialID[MAX_SESSION_DATA_SIZE];
@@ -30,6 +28,7 @@ void checkSession(){
       if(strcmp(sessionData[1], ADD_MODE) == 0){
         hasSession = 1;
         outputFreshLCD("Renting..", sessionData[2]);
+        end_overdue = 0;
         updateSessionData();
       }else if(strcmp(sessionData[1], REMOVE_MODE) == 0){
         hasSession = 0;
@@ -42,9 +41,10 @@ void checkSession(){
         Delay_ms(500);
         getEEPROM(serialID, 0x00);
         getEEPROM(userExp, 0x0C);
-        outputFreshLCD("Not unit", "");
+        outputFreshLCD(serialID, userExp);
       }else if(strcmp(sessionData[1], "END_OVERDUE") == 0){
         end_overdue = 1;
+        setEEPROM(sessionData[2], 0x0C);
       }
     }else {
       Delay_ms(500);

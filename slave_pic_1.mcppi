@@ -26,7 +26,7 @@ ActiveImageIndex=-1
 [OPENED_FILES]
 File0=slave_pic_1.c
 File1=..\Test 8\slave_pic_1.c
-File2=.\Headers\modules.h
+File2=.\Headers\session.h
 Count=3
 [EEPROM]
 Count=0
@@ -70,11 +70,7 @@ Count=11
 0=slave_pic_1.mcppi
 3=Header Files
 4=Headers
-27=host_pic.mcppi
-30=Header Files
-31=Headers
-42=Host
-Count=7
+Count=3
 [LIB_EXPANDED_NODES]
 1=System Libraries
 45=Conversions
