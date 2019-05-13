@@ -1,5 +1,5 @@
 #define PIC_ADDR 0x44
-#define UNIT_NUM "2"
+#define UNIT_NUM "4"
 #define CLK_FREQ 100000
 
 
@@ -66,7 +66,7 @@ void main(){
   INTCON.GIE = 1;
   INTCON.PEIE = 1;
 
-  outputFreshLCD("UNIT #2", "Booting up");
+  outputFreshLCD("UNIT #4", "Booting up");
   Delay_ms(3000);
   outputFreshLCD("", "");
   LATB.f2 = 0;
@@ -86,7 +86,13 @@ void main(){
             getEEPROM(userExpEpochStr, 0x0C);
             userExpEpoch = atol(userExpEpochStr);
             if(currTime > userExpEpoch){
-              outputFreshLCD("Expired", "Settle overdue");
+              if(end_overdue == 1){
+                outputFreshLCD("Oops, invalid.", "Check dashboard.");
+                clearEEPROM();
+                end_overdue = 0;
+              }else {
+                outputFreshLCD("Expired", "Settle overdue");
+              }
             }else{
               outputFreshLCD("Unlocking", "your unit");
               LATB.f2 = 1;
