@@ -44,7 +44,7 @@ void checkSession(){
         outputFreshLCD(serialID, userExp);
       }else if(strcmp(sessionData[1], "END_OVERDUE") == 0){
         end_overdue = 1;
-        setEEPROM(sessionData[2], 0x0C);
+        updateSessionData();
       }
     }else {
       Delay_ms(500);
